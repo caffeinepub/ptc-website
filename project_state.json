@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "PTC (Paid-To-Click) website where users earn $100 per ad watched.",
+  "architectural_notes": [
+    "PTC platform: users earn $100 per ad watched; requires balance tracking and payout logic"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Bold hero banner with gold coins, dollar signs, and a glowing click cursor on a dark navy gradient background (hero-banner.dim_1200x400.png)\n- Gold trophy cup icon with sparkle effects on transparent background (trophy-icon.dim_128x128.png)\n- Stylized dollar sign badge icon with gold and navy colors on transparent background (earn-icon.dim_128x128.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-user-registration-and-login-system-using-internet-identity-storing-user-profiles-username-email-registration-date-balance-in-the-backend",
+      "title": "Create a user registration and login system using Internet Identity, storing user profiles (username, email, registration date, balance) in the backend.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-an-ad-watching-flow-users-see-a-list-of-available-ads-click-to-watch-an-ad-displayed-in-an-embedded-iframe-or-video-player-with-a-countdown-timer-matching-the-ad-duration-and-after-the-timer-completes-a-claim-reward-button-appears-clicking-it-credits-100-to-the-user-s-balance-each-ad-can-only-be-claimed-once-per-user-per-day",
+      "title": "Build an ad watching flow: users see a list of available ads, click to watch an ad (displayed in an embedded iframe or video player with a countdown timer matching the ad duration), and after the timer completes a 'Claim Reward' button appears. Clicking it credits $100 to the user's balance. Each ad can only be claimed once per user per day.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-user-dashboard-page-showing-total-earnings-balance-number-of-ads-watched-today-total-ads-watched-all-time-daily-earnings-summary-and-a-list-of-recent-reward-transactions-with-timestamps",
+      "title": "Create a user dashboard page showing: total earnings balance, number of ads watched today, total ads watched all-time, daily earnings summary, and a list of recent reward transactions with timestamps.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-withdrawal-request-system-where-users-can-request-a-payout-of-their-earned-balance-minimum-withdrawal-500-requests-are-stored-in-the-backend-with-status-pending-approved-rejected-display-withdrawal-history-in-the-user-dashboard",
+      "title": "Implement a withdrawal request system where users can request a payout of their earned balance (minimum withdrawal $500). Requests are stored in the backend with status (pending/approved/rejected). Display withdrawal history in the user dashboard.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-bold-energetic-visual-theme-using-rich-gold-and-dark-navy-colors-with-modern-card-based-layouts-glowing-accent-highlights-and-clear-call-to-action-buttons-use-a-clean-sans-serif-typography-hierarchy-and-enforce-the-theme-consistently-across-all-pages-including-landing-dashboard-ads-list-and-withdrawal-pages",
+      "title": "Apply a bold, energetic visual theme using rich gold and dark navy colors with modern card-based layouts, glowing accent highlights, and clear call-to-action buttons. Use a clean sans-serif typography hierarchy and enforce the theme consistently across all pages including landing, dashboard, ads list, and withdrawal pages.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-public-landing-page-that-explains-the-platform-earn-100-per-ad-watched-displays-key-stats-total-users-total-paid-out-and-includes-a-prominent-sign-up-login-call-to-action-using-internet-identity",
+      "title": "Build a public landing page that explains the platform (earn $100 per ad watched), displays key stats (total users, total paid out), and includes a prominent sign-up/login call-to-action using Internet Identity.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Ad watching system that rewards $100 per ad view",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "User registration and login system",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "User dashboard showing earnings and available ads",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Ad listing and management for advertisers",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Withdrawal/payout system for user earnings",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Implement an ad listing system where the backend stores available ads (title, description, ad URL, duration in seconds, reward amount set to $100). Provide at least 5 sample ads pre-loaded.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "PTC Website",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

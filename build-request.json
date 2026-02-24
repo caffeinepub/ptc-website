@@ -1,0 +1,159 @@
+{
+  "kind": "build_request",
+  "title": "PTC (Paid-To-Click) Website with Ad Watching Rewards",
+  "projectName": "ClickEarn PTC",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a user registration and login system using Internet Identity, storing user profiles (username, email, registration date, balance) in the backend.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Ptc website for me which gives 100 dollars per ad watch"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can register and log in via Internet Identity",
+        "User profile is created on first login with initial balance of $0",
+        "User profile data (username, balance, join date) is persisted in backend"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement an ad listing system where the backend stores available ads (title, description, ad URL, duration in seconds, reward amount set to $100). Provide at least 5 sample ads pre-loaded.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Ptc website for me which gives 100 dollars per ad watch"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend stores a list of ads with title, description, URL, duration, and reward fields",
+        "At least 5 sample ads are pre-loaded",
+        "Each ad has a reward value of $100"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build an ad watching flow: users see a list of available ads, click to watch an ad (displayed in an embedded iframe or video player with a countdown timer matching the ad duration), and after the timer completes a 'Claim Reward' button appears. Clicking it credits $100 to the user's balance. Each ad can only be claimed once per user per day.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "gives 100 dollars per ad watch"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Available ads page lists all active ads with title, reward amount, and duration",
+        "Clicking an ad opens a full-screen or modal view with a countdown timer",
+        "The 'Claim Reward' button is disabled/hidden until the countdown reaches zero",
+        "Claiming an ad adds exactly $100 to the user's balance",
+        "The same ad cannot be claimed more than once per day per user",
+        "Already-watched ads for the day are marked as completed"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Create a user dashboard page showing: total earnings balance, number of ads watched today, total ads watched all-time, daily earnings summary, and a list of recent reward transactions with timestamps.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Ptc website for me which gives 100 dollars per ad watch"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dashboard displays current balance prominently",
+        "Shows count of ads watched today vs. total",
+        "Transaction history shows each reward with ad title, amount, and date/time",
+        "Data is fetched from the backend and updates after each ad claim"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement a withdrawal request system where users can request a payout of their earned balance (minimum withdrawal $500). Requests are stored in the backend with status (pending/approved/rejected). Display withdrawal history in the user dashboard.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Ptc website for me which gives 100 dollars per ad watch"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can submit a withdrawal request specifying amount (minimum $500)",
+        "Withdrawal request is saved in backend with 'pending' status",
+        "User's available balance is reduced by the requested amount upon submission",
+        "Withdrawal history is visible in the dashboard with status labels",
+        "Users cannot withdraw more than their current balance"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Apply a bold, energetic visual theme using rich gold and dark navy colors with modern card-based layouts, glowing accent highlights, and clear call-to-action buttons. Use a clean sans-serif typography hierarchy and enforce the theme consistently across all pages including landing, dashboard, ads list, and withdrawal pages.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Color palette uses dark navy backgrounds with gold/amber accents",
+        "All pages share consistent header, navigation, and card styles",
+        "CTA buttons use bold gold styling with hover effects",
+        "Typography is clean and legible with clear visual hierarchy"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Build a public landing page that explains the platform (earn $100 per ad watched), displays key stats (total users, total paid out), and includes a prominent sign-up/login call-to-action using Internet Identity.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Ptc website for me"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Landing page has a hero section with headline and sign-up CTA",
+        "Features section explains how earning works step by step",
+        "Stats section shows platform metrics",
+        "Not-logged-in users are directed to the landing page; logged-in users go to dashboard"
+      ]
+    }
+  ],
+  "constraints": [
+    "Use Internet Identity for authentication only — no username/password auth",
+    "All data persistence must use the Motoko backend canister",
+    "No real payment processing — balances and withdrawals are tracked on-chain as demo data"
+  ],
+  "nonGoals": [
+    "Real money transfers or integration with payment processors",
+    "Advertiser self-serve ad submission portal",
+    "Admin panel for approving withdrawals (withdrawals remain in pending state)",
+    "Real-time notifications or WebSocket features",
+    "Mobile app version"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Bold hero banner with gold coins, dollar signs, and a glowing click cursor on a dark navy gradient background (hero-banner.dim_1200x400.png)",
+      "Gold trophy cup icon with sparkle effects on transparent background (trophy-icon.dim_128x128.png)",
+      "Stylized dollar sign badge icon with gold and navy colors on transparent background (earn-icon.dim_128x128.png)"
+    ],
+    "edits": []
+  }
+}

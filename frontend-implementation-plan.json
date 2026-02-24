@@ -1,0 +1,216 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "PTC (Paid-To-Click) Website - Frontend Implementation",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement Internet Identity authentication flow with user profile setup modal for new users",
+      "acceptanceCriteria": [
+        "Users can register and log in via Internet Identity",
+        "User profile is created on first login with initial balance of $0",
+        "User profile data (username, balance, join date) is persisted in backend"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create a modal component that prompts new users to enter their username and email on first login. The modal should call saveCallerUserProfile with the entered data. Use the authorization component's profile setup pattern to prevent modal flash by checking if userProfile is null only after actor is ready and profile query is fetched. Apply gold/navy theme styling with bold CTA buttons."
+        },
+        {
+          "path": "frontend/src/hooks/useGetCallerUserProfile.ts",
+          "operation": "create",
+          "description": "Create a custom hook that fetches the current user's profile using getCallerUserProfile(). Follow the authorization component's pattern to prevent profile setup modal flash: return custom state with isLoading that includes actorFetching, and isFetched that checks both actor availability and query.isFetched. Use @tanstack/react-query with queryKey ['currentUserProfile']."
+        },
+        {
+          "path": "frontend/src/hooks/useSaveCallerUserProfile.ts",
+          "operation": "create",
+          "description": "Create a mutation hook that saves the user profile using saveCallerUserProfile(profile). Invalidate the ['currentUserProfile'] query on success to refresh the profile data immediately."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Use the authorization component to implement login/logout functionality. The component should call useInternetIdentity hook and useQueryClient. On logout, call clear() and queryClient.clear() to remove all cached data including user profile. Follow the authorization component's LoginButton example exactly. Apply gold/navy theme with bold styling for the login button."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the ProfileSetupModal into the app root. Check authentication state using useInternetIdentity and profile state using useGetCallerUserProfile. Show the ProfileSetupModal only when isAuthenticated && !profileLoading && isFetched && userProfile === null (following the authorization component's pattern to prevent flash). Ensure the modal appears before any other authenticated content. Add routing logic: redirect unauthenticated users to landing page, authenticated users with profiles to dashboard."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build ad watching flow with countdown timer, claim button, and once-per-day restriction per ad",
+      "acceptanceCriteria": [
+        "Available ads page lists all active ads with title, reward amount, and duration",
+        "Clicking an ad opens a full-screen or modal view with a countdown timer",
+        "The 'Claim Reward' button is disabled/hidden until the countdown reaches zero",
+        "Claiming an ad adds exactly $100 to the user's balance",
+        "The same ad cannot be claimed more than once per day per user",
+        "Already-watched ads for the day are marked as completed"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/AdsPage.tsx",
+          "operation": "create",
+          "description": "Create a page that displays all available ads in a grid using card layouts. Fetch ads using getAvailableAds() and user's ad watches using getCallerAdWatches(). For each ad card, show title, description, reward amount ($100), and duration. Indicate if the ad was already watched today by comparing ad.id with today's watches from getCallerAdWatches(). Disable or mark completed ads. On card click, navigate to /ads/:adId to watch the ad. Apply bold gold/navy card styling with glowing accents."
+        },
+        {
+          "path": "frontend/src/pages/WatchAdPage.tsx",
+          "operation": "create",
+          "description": "Create a full-screen ad watching page that displays the ad in an iframe using ad.url. Implement a countdown timer using the ad.duration in seconds. Display the timer prominently. Hide or disable the 'Claim Reward' button until the countdown reaches zero. When the timer completes, enable the button and allow the user to call claimAd(adId) mutation. On successful claim, show a success message and navigate back to /ads or /dashboard. Use bold gold CTA button for claim action."
+        },
+        {
+          "path": "frontend/src/hooks/useGetAvailableAds.ts",
+          "operation": "create",
+          "description": "Create a query hook that fetches available ads using getAvailableAds(). Use queryKey ['availableAds'] and enable only when actor is available."
+        },
+        {
+          "path": "frontend/src/hooks/useGetCallerAdWatches.ts",
+          "operation": "create",
+          "description": "Create a query hook that fetches the current user's ad watch history using getCallerAdWatches(). Use queryKey ['callerAdWatches'] and enable only when actor is available."
+        },
+        {
+          "path": "frontend/src/hooks/useClaimAd.ts",
+          "operation": "create",
+          "description": "Create a mutation hook that claims an ad reward by calling claimAd(adId). On success, invalidate ['callerAdWatches'], ['currentUserProfile'], and ['dashboardStats'] queries to refresh balance and stats immediately. Handle backend traps for already-claimed ads or other errors with user-friendly error messages."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register routes for /ads (AdsPage) and /ads/:adId (WatchAdPage). Ensure both routes are protected and only accessible to authenticated users with profiles. Add navigation link to AdsPage in the main navigation bar."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Create user dashboard showing earnings, ad watch stats, and transaction history",
+      "acceptanceCriteria": [
+        "Dashboard displays current balance prominently",
+        "Shows count of ads watched today vs. total",
+        "Transaction history shows each reward with ad title, amount, and date/time",
+        "Data is fetched from the backend and updates after each ad claim"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "create",
+          "description": "Create the main dashboard page that displays user earnings and stats. Fetch data using getDashboardStats() for totalBalance, adsWatchedToday, totalAdsWatched, and getCallerAdWatches() for transaction history. Display the balance prominently in a large card with gold styling. Show today's ad count vs. total in stat cards. Display a transaction history table showing each ad watch with ad ID (or title if you fetch ad details), reward amount, and formatted date/time from watchDate. Use bold card-based layouts with gold/navy theme and clear visual hierarchy."
+        },
+        {
+          "path": "frontend/src/hooks/useGetDashboardStats.ts",
+          "operation": "create",
+          "description": "Create a query hook that fetches dashboard statistics using getDashboardStats(). Use queryKey ['dashboardStats'] and enable only when actor is available. This hook provides totalBalance, adsWatchedToday, and totalAdsWatched."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the /dashboard route for DashboardPage. Make it the default landing page for authenticated users with profiles. Ensure it is protected and only accessible to logged-in users."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement withdrawal request system with minimum $500 threshold and status tracking",
+      "acceptanceCriteria": [
+        "Users can submit a withdrawal request specifying amount (minimum $500)",
+        "Withdrawal request is saved in backend with 'pending' status",
+        "User's available balance is reduced by the requested amount upon submission",
+        "Withdrawal history is visible in the dashboard with status labels",
+        "Users cannot withdraw more than their current balance"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/WithdrawalPage.tsx",
+          "operation": "create",
+          "description": "Create a withdrawal request page with a form to enter the withdrawal amount. Display the current balance prominently. Enforce minimum $500 validation on the frontend and show an error if the amount exceeds the user's balance. On submit, call requestWithdrawal(amount) mutation. Show a success message on successful submission and redirect to dashboard or withdrawal history. Use bold gold CTA button and navy card background."
+        },
+        {
+          "path": "frontend/src/components/WithdrawalHistoryTable.tsx",
+          "operation": "create",
+          "description": "Create a component that displays the user's withdrawal history in a table format. Fetch data using getCallerWithdrawalHistory(). Show columns for amount, status (pending/approved/rejected), and request date. Apply status-specific styling (e.g., yellow for pending, green for approved, red for rejected). Use card-based layout with gold/navy theme."
+        },
+        {
+          "path": "frontend/src/hooks/useRequestWithdrawal.ts",
+          "operation": "create",
+          "description": "Create a mutation hook that submits a withdrawal request by calling requestWithdrawal(amount). On success, invalidate ['currentUserProfile'], ['dashboardStats'], and ['callerWithdrawalHistory'] queries to refresh balance and withdrawal list. Handle backend traps for insufficient balance or invalid amounts with user-friendly error messages."
+        },
+        {
+          "path": "frontend/src/hooks/useGetCallerWithdrawalHistory.ts",
+          "operation": "create",
+          "description": "Create a query hook that fetches the current user's withdrawal history using getCallerWithdrawalHistory(). Use queryKey ['callerWithdrawalHistory'] and enable only when actor is available."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "modify",
+          "description": "Add a withdrawal history section to the dashboard page that uses the WithdrawalHistoryTable component to display recent withdrawals. Include a prominent link or button to navigate to the withdrawal request page."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the /withdrawal route for WithdrawalPage. Ensure it is protected and only accessible to authenticated users with profiles. Add a navigation link to the withdrawal page in the main navigation bar."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Apply bold energetic visual theme with gold and dark navy colors across all pages",
+      "acceptanceCriteria": [
+        "Color palette uses dark navy backgrounds with gold/amber accents",
+        "All pages share consistent header, navigation, and card styles",
+        "CTA buttons use bold gold styling with hover effects",
+        "Typography is clean and legible with clear visual hierarchy"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define global CSS custom properties for the gold and dark navy color palette (e.g., --color-navy-dark, --color-gold, --color-gold-light). Set the body background to dark navy. Define utility classes for card backgrounds, gold accents, glowing effects, and bold typography. Ensure all global styles support the energetic PTC theme with clear visual hierarchy."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend the Tailwind theme with custom colors for navy (primary dark background), gold/amber (accent and CTA buttons), and any additional shades needed. Add custom utilities for glowing effects, card shadows, and hover transitions. Ensure the configuration supports the bold, energetic visual style required across all pages."
+        },
+        {
+          "path": "frontend/src/components/layout/Header.tsx",
+          "operation": "create",
+          "description": "Create a global header component with consistent styling using gold and navy colors. Include the app logo/title, main navigation links (Dashboard, Ads, Withdrawal), and the LoginButton component. Apply bold typography and glowing accent highlights. Use this header across all authenticated pages."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "create",
+          "description": "Create a layout wrapper component that includes the Header and provides a consistent page structure for all authenticated pages. Use navy background and ensure all child pages inherit the theme. This layout should be used by Dashboard, Ads, Withdrawal, and WatchAd pages."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap authenticated routes (dashboard, ads, withdrawal) with the AppLayout component to ensure consistent header, navigation, and theme styling across all pages."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Build public landing page with hero, features, stats, and sign-up CTA",
+      "acceptanceCriteria": [
+        "Landing page has a hero section with headline and sign-up CTA",
+        "Features section explains how earning works step by step",
+        "Stats section shows platform metrics",
+        "Not-logged-in users are directed to the landing page; logged-in users go to dashboard"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "create",
+          "description": "Create a public landing page with a hero section that uses the generated hero-banner.dim_1200x400.png image from frontend/public/assets/generated/hero-banner.dim_1200x400.png. Display a bold headline (e.g., 'Earn $100 Per Ad Watch!') and a prominent sign-up CTA button that triggers Internet Identity login using the LoginButton component. Add a features section explaining the earning process step-by-step with icons (use frontend/public/assets/generated/trophy-icon.dim_128x128.png and frontend/public/assets/generated/earn-icon.dim_128x128.png). Include a stats section displaying mock or backend-fetched platform metrics (total users, total paid out). Apply the gold/navy theme with bold typography and glowing accents throughout."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the / route for LandingPage. Implement routing logic: unauthenticated users or users without profiles see the LandingPage; authenticated users with profiles are redirected to /dashboard. Ensure the landing page is publicly accessible (no authentication required)."
+        }
+      ]
+    }
+  ]
+}

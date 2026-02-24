@@ -1,0 +1,138 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-user-registration-and-login-system-using-internet-identity-storing-user-profiles-username-email-registration-date-balance-in-the-backend",
+      "featureTitle": "Create a user registration and login system using Internet Identity, storing user profiles (username, email, registration date, balance) in the backend.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-an-ad-watching-flow-users-see-a-list-of-available-ads-click-to-watch-an-ad-displayed-in-an-embedded-iframe-or-video-player-with-a-countdown-timer-matching-the-ad-duration-and-after-the-timer-completes-a-claim-reward-button-appears-clicking-it-credits-100-to-the-user-s-balance-each-ad-can-only-be-claimed-once-per-user-per-day",
+      "featureTitle": "Build an ad watching flow: users see a list of available ads, click to watch an ad (displayed in an embedded iframe or video player with a countdown timer matching the ad duration), and after the timer completes a 'Claim Reward' button appears. Clicking it credits $100 to the user's balance. Each ad can only be claimed once per user per day.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/AdsPage.tsx",
+        "frontend/src/pages/WatchAdPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-user-dashboard-page-showing-total-earnings-balance-number-of-ads-watched-today-total-ads-watched-all-time-daily-earnings-summary-and-a-list-of-recent-reward-transactions-with-timestamps",
+      "featureTitle": "Create a user dashboard page showing: total earnings balance, number of ads watched today, total ads watched all-time, daily earnings summary, and a list of recent reward transactions with timestamps.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/DashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-withdrawal-request-system-where-users-can-request-a-payout-of-their-earned-balance-minimum-withdrawal-500-requests-are-stored-in-the-backend-with-status-pending-approved-rejected-display-withdrawal-history-in-the-user-dashboard",
+      "featureTitle": "Implement a withdrawal request system where users can request a payout of their earned balance (minimum withdrawal $500). Requests are stored in the backend with status (pending/approved/rejected). Display withdrawal history in the user dashboard.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/WithdrawalHistoryTable.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/WithdrawalPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-bold-energetic-visual-theme-using-rich-gold-and-dark-navy-colors-with-modern-card-based-layouts-glowing-accent-highlights-and-clear-call-to-action-buttons-use-a-clean-sans-serif-typography-hierarchy-and-enforce-the-theme-consistently-across-all-pages-including-landing-dashboard-ads-list-and-withdrawal-pages",
+      "featureTitle": "Apply a bold, energetic visual theme using rich gold and dark navy colors with modern card-based layouts, glowing accent highlights, and clear call-to-action buttons. Use a clean sans-serif typography hierarchy and enforce the theme consistently across all pages including landing, dashboard, ads list, and withdrawal pages.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/components/layout/Header.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-public-landing-page-that-explains-the-platform-earn-100-per-ad-watched-displays-key-stats-total-users-total-paid-out-and-includes-a-prominent-sign-up-login-call-to-action-using-internet-identity",
+      "featureTitle": "Build a public landing page that explains the platform (earn $100 per ad watched), displays key stats (total users, total paid out), and includes a prominent sign-up/login call-to-action using Internet Identity.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/LandingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

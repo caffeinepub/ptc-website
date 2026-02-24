@@ -1,0 +1,77 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-24T21:31:07.210Z",
+  "summary": "The diff implements the vast majority of the build request requirements. All seven REQs are substantially addressed: Internet Identity auth (REQ-1), backend ad listing with 5 sample ads at $100 each (REQ-2), ad watching flow with countdown timer and claim logic (REQ-3), dashboard with stats and transaction history (REQ-4), withdrawal system with minimum $500 and pending status (REQ-5), gold/navy visual theme (REQ-6), and public landing page with hero, features, and stats (REQ-7). A few minor gaps are noted below.",
+  "missing_requirements": [
+    {
+      "id": "REQ-3",
+      "requirement": "Ad displayed in an embedded iframe or video player",
+      "reason": "The WatchAdPage uses a YouTube iframe embed per the file summary, but the ad URLs stored in the backend use the watch URL format (https://www.youtube.com/watch?v=...) rather than the embeddable format (https://www.youtube.com/embed/...). YouTube watch URLs fail in iframes due to X-Frame-Options restrictions, making the iframe non-functional.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/pages/WatchAdPage.tsx"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Daily earnings summary shown on dashboard",
+      "reason": "The dashboard shows an ads-watched-today count and a derived dollar figure, but there is no explicit daily earnings summary section or per-day breakdown visible in the evidence. The transaction history shows individual entries but daily grouping is not evidenced.",
+      "evidence": [
+        "frontend/src/pages/DashboardPage.tsx"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Stats section shows platform metrics (total users, total paid out)",
+      "reason": "The landing page file summary mentions a stats bar, but the truncated backend shows no public query endpoint returning total user count or total paid out. The stats are likely static placeholder values rather than live backend data.",
+      "evidence": [
+        "frontend/src/pages/LandingPage.tsx",
+        "backend/main.mo"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Mobile hamburger navigation menu in the header",
+      "reason": "The build request does not mention mobile-specific navigation or a hamburger menu. The Header component implements a full mobile menu with hamburger toggle, which was not requested.",
+      "evidence": [
+        "frontend/src/components/layout/Header.tsx"
+      ]
+    },
+    {
+      "description": "MAX button for auto-filling the maximum withdrawal amount",
+      "reason": "The withdrawal page includes a MAX button that auto-fills the user's full balance into the withdrawal amount field. This feature was not specified in the build request.",
+      "evidence": [
+        "frontend/src/pages/WithdrawalPage.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.72,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/WithdrawalHistoryTable.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/layout/AppLayout.tsx",
+    "frontend/src/components/layout/Header.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/AdsPage.tsx",
+    "frontend/src/pages/DashboardPage.tsx",
+    "frontend/src/pages/LandingPage.tsx",
+    "frontend/src/pages/WatchAdPage.tsx",
+    "frontend/src/pages/WithdrawalPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "frontend/src/index.css": "Global styles with dark navy/gold OKLCH color system, custom utility classes for gold gradients, glowing effects, card styles, and status badges for the PTC theme.",
+  "frontend/tailwind.config.js": "Extended Tailwind config with Inter/Bebas Neue fonts, gold and navy color tokens, custom box shadows, and gold pulse animation keyframes.",
+  "frontend/src/hooks/useQueries.ts": "All React Query hooks for the backend — user profile CRUD, available ads, ad watches, claim ad mutation, dashboard stats, withdrawal history, and request withdrawal mutation.",
+  "frontend/src/components/auth/LoginButton.tsx": "Internet Identity login/logout button with three variants (default, hero, nav) supporting loading states and query cache clearing on logout.",
+  "frontend/src/components/auth/ProfileSetupModal.tsx": "First-login modal dialog that collects username and email, creates a UserProfile with zero balance, and saves it via the backend mutation.",
+  "frontend/src/components/layout/Header.tsx": "Sticky navigation header with AdEarn logo, authenticated nav links (Dashboard, Watch Ads, Withdraw), live balance display, and mobile hamburger menu.",
+  "frontend/src/components/layout/AppLayout.tsx": "Layout wrapper using TanStack Router's Outlet, composing the Header and a footer with caffeine.ai attribution for all authenticated pages.",
+  "frontend/src/components/WithdrawalHistoryTable.tsx": "Table component displaying the user's withdrawal history with amount, status badges (pending/approved/rejected), and formatted dates.",
+  "frontend/src/pages/LandingPage.tsx": "Public landing page with hero section, step-by-step how-it-works, features grid, stats bar, and CTA sections using the gold/navy theme.",
+  "frontend/src/pages/DashboardPage.tsx": "Authenticated dashboard showing balance, today's ad count, total watched stats, recent earnings transaction list, and withdrawal history section.",
+  "frontend/src/pages/AdsPage.tsx": "Grid page listing all available ads with watch status, duration, reward amount, and links to the watch page; marks already-claimed ads for the day.",
+  "frontend/src/pages/WatchAdPage.tsx": "Full ad-watching page with YouTube iframe embed, SVG countdown timer, and a claim button that unlocks after the timer completes; fixed `useParams` to use the correct full route path `/app/ads/$adId`.",
+  "frontend/src/pages/WithdrawalPage.tsx": "Withdrawal request form with balance display, $500 minimum validation, MAX button, submission via requestWithdrawal mutation, and withdrawal history table.",
+  "frontend/src/App.tsx": "Main app with TanStack Router setup — root route with ProfileSetupModal and Toaster, landing page route, and authenticated app layout routes for dashboard, ads, watch-ad, and withdrawal."
+}
